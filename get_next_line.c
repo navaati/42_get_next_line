@@ -6,7 +6,7 @@
 /*   By: lgillot- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/08 17:53:23 by lgillot-          #+#    #+#             */
-/*   Updated: 2015/05/14 21:24:20 by lgillot-         ###   ########.fr       */
+/*   Updated: 2015/05/14 22:06:04 by lgillot-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int				get_next_line(int const fd, char **line)
 	size_t				processed_bytes;
 	int					ret;
 
+	if (!line)
+		return (-1);
 	eol_found = FALSE;
 	processed_bytes = 0;
 	ret = 1;
