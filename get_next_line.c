@@ -6,16 +6,30 @@
 /*   By: lgillot- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/08 17:53:23 by lgillot-          #+#    #+#             */
-/*   Updated: 2015/05/14 22:06:04 by lgillot-         ###   ########.fr       */
+/*   Updated: 2015/06/08 14:21:09 by lgillot-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
-
-#include <libft.h>
+#include <stdbool.h>
 
 #include "get_next_line.h"
+
+void			*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	char		*dst_it;
+	const char	*src_it;
+
+	dst_it = dst;
+	src_it = src;
+	while (n)
+	{
+		*dst_it++ = *src_it++;
+		n--;
+	}
+	return (dst);
+}
 
 static ssize_t	append_buf_grow(t_append_buf *abuf)
 {
@@ -71,13 +85,13 @@ static char		*append_buf_pop_head(t_append_buf *abuf, size_t head_size)
 int				get_next_line(int const fd, char **line)
 {
 	static t_append_buf	abuf = NULL_ABUF;
-	t_bool				eol_found;
+	bool				eol_found;
 	size_t				processed_bytes;
 	int					ret;
 
 	if (!line)
 		return (-1);
-	eol_found = FALSE;
+	eol_found = false;
 	processed_bytes = 0;
 	ret = 1;
 	while (!eol_found)
@@ -87,7 +101,7 @@ int				get_next_line(int const fd, char **line)
 				break ;
 		if (abuf.buf[processed_bytes] == '\n')
 		{
-			eol_found = TRUE;
+			eol_found = true;
 			abuf.buf[processed_bytes] = '\0';
 		}
 		processed_bytes++;
