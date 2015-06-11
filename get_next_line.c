@@ -6,7 +6,7 @@
 /*   By: lgillot- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/08 17:53:23 by lgillot-          #+#    #+#             */
-/*   Updated: 2015/06/08 14:21:09 by lgillot-         ###   ########.fr       */
+/*   Updated: 2015/06/12 01:16:26 by lgillot-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,23 @@ static char		*append_buf_pop_head(t_append_buf *abuf, size_t head_size)
 	size_t	new_size;
 	char	*head;
 
-	if ((new_buf = malloc(abuf->allocated)) == NULL)
-		return (NULL);
-	new_size = abuf->size - head_size;
-	if (new_size)
-		ft_memcpy(new_buf, abuf->buf + head_size, new_size);
-	head = abuf->buf;
-	abuf->size = new_size;
-	abuf->buf = new_buf;
+	if (head_size == 0)
+	{
+		if ((head = malloc(1)) == NULL)
+			return (NULL);
+		head[0] = '\0';
+	}
+	else
+	{
+		if ((new_buf = malloc(abuf->allocated)) == NULL)
+			return (NULL);
+		new_size = abuf->size - head_size;
+		if (new_size)
+			ft_memcpy(new_buf, abuf->buf + head_size, new_size);
+		head = abuf->buf;
+		abuf->size = new_size;
+		abuf->buf = new_buf;
+	}
 	return (head);
 }
 
